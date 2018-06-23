@@ -6,89 +6,107 @@
 #    By: ohamon <ohamon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/20 23:11:35 by ohamon            #+#    #+#              #
-#    Updated: 2018/06/20 23:50:19 by ohamon           ###   ########.fr        #
+#    Updated: 2018/06/23 11:50:33 by ohamon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAG = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
+ARFLAGS = rcs 
 
 NAME = libft.a
 
-SRC = ft_atoi.c \
-	  ft_bzero.c \
-	  ft_isalnum.c \
-	  ft_isalpha.c \
-	  ft_isascii.c \
-	  ft_isdigit.c \
-	  ft_isprint.c \
-	  ft_itoa.c \
-	  ft_memalloc.c \
-	  ft_memccpy.c \
-	  ft_memchr.c \
-	  ft_memcmp.c \
-	  ft_memcpy.c \
-	  ft_memdel.c \
-	  ft_memmove.c \
-	  ft_memset.c \
-	  ft_putchar.c \
-	  ft_putchar_fd.c \
-	  ft_putendl.c \
-	  ft_putendl_fd.c \
-	  ft_putnbr.c \
-	  ft_putnbr_fd.c \
-	  ft_putstr.c \
-	  ft_putstr_fd.c \
-	  ft_strcat.c \
-	  ft_strchr.c \
-	  ft_strclr.c \
-	  ft_strcmp.c \
-	  ft_strcpy.c \
-	  ft_strdel.c \
-	  ft_strdup.c \
-	  ft_strequ.c \
-	  ft_striter.c \
-	  ft_striteri.c \
-	  ft_strjoin.c \
-	  ft_strlcat.c \
-	  ft_strlen.c \
-	  ft_strmap.c \
-	  ft_strmapi.c \
-	  ft_strncat.c \
-	  ft_strncmp.c \
-	  ft_strncpy.c \
-	  ft_strnequ.c \
-	  ft_strnew.c \
-	  ft_strnstr.c \
-	  ft_strrchr.c \
-	  ft_strsplit.c \
-	  ft_strstr.c \
-	  ft_strsub.c \
-	  ft_strtrim.c \
-	  ft_tolower.c \
-	  ft_toupper.c \
-	  ft_lstadd.c \
-	  ft_lstdel.c \
-	  ft_lstdelone.c \
-	  ft_lstiter.c \
-	  ft_lstnew.c \
-	  ft_lstmap.c \
+INCLUDES= -I includes/
+SRC_FOLDER = src/
+OBJ_FOLDER = obj/
+
+SRC = \
+		mem/ft_memset.c \
+		mem/ft_bzero.c \
+		mem/ft_memcpy.c \
+		mem/ft_memccpy.c \
+		mem/ft_memmove.c \
+		mem/ft_memchr.c \
+		mem/ft_memcmp.c \
+		mem/ft_memalloc.c \
+		mem/ft_memdel.c \
+		str/ft_strlen.c \
+		str/ft_strdup.c \
+		str/ft_strcpy.c \
+		str/ft_strncpy.c \
+		str/ft_strcat.c \
+		str/ft_strncat.c \
+		str/ft_strlcat.c \
+		str/ft_strstr.c \
+		str/ft_strnstr.c \
+		str/ft_strcmp.c \
+		str/ft_toupper.c \
+		str/ft_tolower.c \
+		str/ft_strchr.c \
+		str/ft_strncmp.c \
+		str/ft_strrchr.c \
+		str/ft_strnew.c \
+		str/ft_strdel.c \
+		str/ft_strclr.c \
+		str/ft_striter.c \
+		str/ft_striteri.c \
+		str/ft_strmap.c \
+		str/ft_strmapi.c \
+		str/ft_strequ.c \
+		str/ft_strnequ.c \
+		str/ft_strsub.c \
+		str/ft_strjoin.c \
+		str/ft_strtrim.c \
+		str/ft_strtrim.c \
+		str/ft_strsplit.c \
+		char/ft_isblank.c \
+		char/ft_islower.c \
+		char/ft_isupper.c \
+		char/ft_isspace.c \
+		char/ft_isxdigit.c \
+		char/ft_isalpha.c \
+		char/ft_isdigit.c \
+		char/ft_isalnum.c \
+		char/ft_isascii.c \
+		char/ft_isprint.c \
+		put/ft_putchar.c \
+		put/ft_putchar_fd.c \
+		put/ft_putstr.c \
+		put/ft_putendl.c \
+		put/ft_putnbr.c \
+		put/ft_putstr_fd.c \
+		put/ft_putendl_fd.c \
+		put/ft_putnbr_fd.c \
+		lst/ft_lstnew.c \
+		lst/ft_lstdelone.c \
+		lst/ft_lstdel.c \
+		lst/ft_lstadd.c \
+		lst/ft_lstiter.c \
+		lst/ft_lstmap.c \
+		others/ft_htoi.c \
+		others/ft_atoi.c \
+		others/ft_itoa.c \
+		others/get_next_line.c \
+		num/ft_abs.c
 
 
 OBJ = $(SRC:.c=.o)
 
+OBJ := $(addprefix $(OBJ_FOLDER), $(OBJ))
+SRC := $(addprefix $(SRC_FOLDER), $(SRC))
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
-	@echo "$(NAME) created"
+	@ar $(ARFLAGS) $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "$(NAME) indexed"
+	@echo "$(NAME) created"
 
-%.o: %.c
-	@gcc $(FLAG) -c $< -o $@
+$(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c
+	@mkdir -p $(dir $@)
+	@gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_FOLDER)
 	@echo "OBJ deleted"
 
 fclean: clean
