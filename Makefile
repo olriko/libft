@@ -6,21 +6,18 @@
 #    By: ohamon <ohamon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/20 23:11:35 by ohamon            #+#    #+#              #
-#    Updated: 2018/06/23 11:50:33 by ohamon           ###   ########.fr        #
+#    Updated: 2018/09/10 11:14:53 by ohamon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 ARFLAGS = rcs 
-
 NAME = libft.a
-
 INCLUDES= -I includes/
 SRC_FOLDER = src/
 OBJ_FOLDER = obj/
 
-SRC = \
-		mem/ft_memset.c \
+SRC = 	mem/ft_memset.c \
 		mem/ft_bzero.c \
 		mem/ft_memcpy.c \
 		mem/ft_memccpy.c \
@@ -87,7 +84,6 @@ SRC = \
 		others/ft_itoa.c \
 		others/get_next_line.c \
 		num/ft_abs.c
-
 
 OBJ = $(SRC:.c=.o)
 
